@@ -8,7 +8,6 @@ echo "This Script will create host file from your running container for your ans
 __fetchIPAddress (){
 for IPADDR in  `docker ps -a | awk '{print $1}' | tail -n +2`
    do
-#   docker inspect $IPADDR | grep -i IPAddress | cut -d \" -f 4
     docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $IPADDR
    done;
 
