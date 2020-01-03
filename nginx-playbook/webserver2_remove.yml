@@ -1,0 +1,14 @@
+---
+- hosts: webserver
+  become: true
+  tasks:
+  - name: remove ngnix server
+    yum: name=nginx state=absent
+
+  - name: remove nginx configuration
+    file:
+     path: /etc/nginx/conf.d/
+     state: absent
+
+  - name: remove index files
+    file: path=/usr/share/nginx state=absent
