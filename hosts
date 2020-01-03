@@ -1,0 +1,9 @@
+[test]
+localhost  ansible_user=root
+[webserver]
+testserver ansible_host=172.18.0.2
+
+[docker_group]
+172.22.0.3 ansible_user=user
+172.22.0.4 ansible_user=user
+172.22.0.2 ansible_user=user
