@@ -1,7 +1,0 @@
-[webserver]
-testserver ansible_host=172.22.0.4
-[docker-group]
-172.22.0.2
-172.22.0.3
-172.22.0.4
-
