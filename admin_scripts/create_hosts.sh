@@ -15,7 +15,7 @@ for IPADDR in  `docker ps -a | awk '{print $1}' | tail -n +2`
 
 # creating hosts file
 cat > ../"$path"/hosts << EOF
-[docker-group]
+[docker_group]
 EOF
 
 # Calling function
