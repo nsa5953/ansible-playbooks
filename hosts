@@ -1,7 +1,7 @@
 [webserver]
-nginx_server ansible_host=172.24.0.2 ansible_user=user
+nginx_server ansible_host=172.18.0.2 ansible_user=user
 
 [docker_group]
-172.24.0.4
-172.24.0.3
-172.24.0.2
+172.18.0.2 ansible_user=user
+172.18.0.3 ansible_user=user
+172.18.0.4 ansible_user=user
