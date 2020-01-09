@@ -1,0 +1,32 @@
+---
+ - name: This Playbook will prepare ansible host 
+   hosts: prepare
+   become: True
+   vars:
+     password: $6$TuLBQ6m2F3TFa3Pg$IYhOEfX.KLU7oDCTEEoN3feslJjNiHVFnO2TtROiNbbjJdlTOHLkr2yXbPW162QG.HKs8nJ8n43N063JjDzt50
+   tasks:
+#     - name: Remove user "user"
+#       user:
+#         name: user
+#         state: absent
+#         remove: yes 
+ 
+     - name: Add user "user"
+       user: 
+         name: user 
+         create_home: yes 
+         password: "{{password}}"
+         shell: /bin/bash
+         generate_ssh_key: yes 
+         ssh_key_file: .ssh/id_rsa 
+         update_password: on_create
+
+     - name: Setup passwordless authentication
+       authorized_key: 
+         user: user
+         state: present
+         key: "{{ lookup('file', '/home/user/.ssh/id_rsa.pub') }}"
+        
+
+#     - name: check python installation
+#       raw: test -e /usr/bin/python || ( apt-get update && apt-get install python )
