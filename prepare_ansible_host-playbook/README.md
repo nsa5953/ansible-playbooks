@@ -1,6 +1,6 @@
 # Playbook to prepare ansible host
-# Dockerfile build image instruction:
-# Docker:
+
+# Docker: Docker image build instruction
 cd ansible-playbook
 
 Build Docker Images: This images will have openssh-server installed and default root password set to "ubuntu"
