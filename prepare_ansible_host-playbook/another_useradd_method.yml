@@ -1,0 +1,35 @@
+---
+  - name: Test Register variable
+    become: true
+    hosts: prepare
+    tasks:
+      - name: Install Common Packages
+        package: name={{ item }} state=present 
+        with_items:
+          - python3.7
+          - python3-pip 
+
+      - name: Install passlib
+        pip: name=passlib executable=pip3
+        register: passlib
+     
+      - name: Generate Password in hash 
+        shell: echo $(/usr/bin/python3 -c "from passlib.hash import sha256_crypt ; print(sha256_crypt.using(rounds=5000).hash('redhat123'))")
+        register: passtree
+#      - debug: 
+#          msg: "{{passtree.stdout}}"
+    
+      - set_fact: 
+          passtk: "{{ passtree.stdout }}"
+#      - debug:
+#          msg: "{{passtk}}" 
+ 
+      - name: Add user "user"
+        user:
+          name: user
+          create_home: yes
+          password: "{{ passtk }}"
+          shell: /bin/bash
+          generate_ssh_key: yes
+          ssh_key_file: .ssh/id_rsa
+          update_password: always
