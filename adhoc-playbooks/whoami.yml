@@ -7,3 +7,5 @@
         command: id -un
         register: login
       - debug: var=login
+      - debug: msg="Login user is {{ login.stdout }}"
+
