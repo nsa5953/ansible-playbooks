@@ -1,0 +1,7 @@
+---
+  - name: Check operating system
+    hosts: all
+    gather_facts: True
+    tasks: 
+      - debug: var=ansible_distribution 
+      - debug: var=ansible_all_ipv4_addresses
