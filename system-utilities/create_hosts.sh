@@ -38,4 +38,4 @@ EOF
 
 # Calling function
 __displayDETAILS
-__fetchIPAddress >> ../"$path"/hosts
+#__fetchIPAddress >> ../"$path"/hosts
