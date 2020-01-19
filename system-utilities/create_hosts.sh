@@ -22,6 +22,13 @@ for IPADDR in  `docker ps -a | awk '{print $1}' | tail -n +2`
 #
 
 __fetchIPAddress (){
+
+# creating hosts file
+cat > ../"$path"/hosts << EOF
+[docker_group]
+EOF
+
+## Check IP addresses of containers 
 for IPADDR in  `docker ps -a | awk '{print $1}' | tail -n +2`
    do
     docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $IPADDR
@@ -30,10 +37,6 @@ for IPADDR in  `docker ps -a | awk '{print $1}' | tail -n +2`
 
 
 
-# creating hosts file
-cat > ../"$path"/hosts << EOF
-[docker_group]
-EOF
 
 
 # Calling function
