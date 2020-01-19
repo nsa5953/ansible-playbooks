@@ -1,0 +1,19 @@
+---
+  - name: Check operating system
+    hosts: all
+    gather_facts: True
+    tasks: 
+     - name: refresh facts
+       setup:
+
+     - name: Check Ansible Distribution 
+       debug: var=ansible_distribution 
+
+     - name: Check IPv4 address 
+       debug: var=ansible_all_ipv4_addresses
+
+     - name: Set Facts
+       set_fact:
+         ansible_distribution: "{{ansible_distribution | upper }}"
+
+     - debug: msg="{{ ansible_distribution }}"
