@@ -1,0 +1,19 @@
+---
+- 
+  hosts: docker_group, prepare
+  become: True
+  tasks:
+    - name: Configure a MOTD (MOTD - Message of the Day )
+      copy: 
+        content: "Welcome to {{ item }} Linux - Ansible Rocks !! \n"
+        dest: /etc/motd
+      notify: MOTD changed
+      with_items: ["CentOS", "Ubuntu"]
+      when: ansible_distribution == item
+  
+  handlers:
+    - name: MOTD changed
+      debug: 
+        msg: The MOTD File is changed
+
+...
