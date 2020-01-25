@@ -1,0 +1,20 @@
+---
+-
+  name: Playbook to find out Ansible Magic variables
+  hosts: docker_group
+  tasks:
+  - name: Creating remote variables file used for this Play
+    template:
+      src: templates/remote_variable
+      dest: /tmp/remote_ansible_variables
+
+  - name: Fetch remote_ansible_variables file to control host
+    fetch: 
+      src: /tmp/remote_ansible_variables
+      dest: /home/saturn/{{ ansible_hostname }}
+      flat: yes
+
+  - name: Cleanup remote variable files from hosts
+    file:
+      name: /tmp/remote_ansible_variables
+      state: absent
