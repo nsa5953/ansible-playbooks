@@ -1,0 +1,55 @@
+---
+- name: Initial 3DExperience node configuration (Linux)
+  hosts: localhost
+  become: True
+  become_user: root
+  tasks:
+  - name: "Hostfile configuration /etc/hosts"
+    blockinfile:
+      path: /etc/hosts
+      block: |
+        {{ item.ip }} {{ item.name }}
+      marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item.name }}"
+    loop:
+      - { name: 3dpassport, ip: 172.18.0.2 }
+      - { name: 3ddashboard, ip: 172.18.0.3 }
+      - { name: 3dspace, ip: 172.18.0.5 }
+    
+
+  - name: Create license directory for software.license
+    file: 
+      path: /etc/software
+      state: directory
+      
+  - name: Create license file
+    file: 
+      path: /etc/software/software.license
+      state: touch
+      
+
+  - name: update License file
+    blockinfile:
+      path: /etc/software/software.license
+      block: |
+        10.44.53.4:80
+      
+
+  # - name: Fetch remote_ansible_hosts file to control node
+  #   fetch: 
+  #     src: /etc/hosts
+  #     dest: /tmp/{{ ansible_hostname }}/
+  #     flat: yes
+
+  # - name: Fetch remote_ansible_license file to control node
+  #   fetch: 
+  #     src: /etc/software/software.license
+  #     dest: /tmp/{{ ansible_hostname }}/
+  #     flat: yes
+
+  - name: Fetch files from remote hosts to control node 
+    fetch: 
+      src: "{{ item }}"
+      dest: /tmp/{{ ansible_hostname }}/
+    with_items: 
+      - /etc/software/software.license
+      - /etc/hosts
