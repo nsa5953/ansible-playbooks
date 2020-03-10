@@ -1,5 +1,5 @@
 ---
-- name: Initial 3DExperience node configuration (Linux)
+- name: Initial node configuration (Linux)
   hosts: localhost
   become: True
   become_user: root
@@ -11,9 +11,9 @@
         {{ item.ip }} {{ item.name }}
       marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item.name }}"
     loop:
-      - { name: 3dpassport, ip: 172.18.0.2 }
-      - { name: 3ddashboard, ip: 172.18.0.3 }
-      - { name: 3dspace, ip: 172.18.0.5 }
+      - { name: docker_node1, ip: 172.18.0.2 }
+      - { name: docker_node2, ip: 172.18.0.3 }
+      - { name: docker_node3, ip: 172.18.0.5 }
     
 
   - name: Create license directory for software.license
