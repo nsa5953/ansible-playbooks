@@ -1,0 +1,14 @@
+---
+- name: Http installation and configuration (centos)
+  hosts: webserver
+  become: True
+  gather_facts: false
+  tasks:
+    - name: Install apache(httpd) package.
+      package: name=httpd state=present
+      notify: start apache
+
+  handlers:
+    - name: start apache
+      service: name=httpd state=started
+      
