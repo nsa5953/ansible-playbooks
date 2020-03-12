@@ -6,9 +6,7 @@
   tasks:
     - name: Install apache(httpd) package.
       package: name=httpd state=present
-      notify: start apache
-
-  handlers:
-    - name: start apache
+      
+    - name: Start apache(httpd) service 
       service: name=httpd state=started
       
