@@ -42,6 +42,6 @@ do
                      exit 1;;
       "Quit") exit 1;;
       *)  
-      echo "`basename ${0}`:usage: [1- List container IP details ] | [2 - Update hosts file]" 
+      echo "`basename ${0}`:Select appropriate options" 
    esac
 done
